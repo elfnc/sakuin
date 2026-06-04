@@ -253,25 +253,25 @@ Momo analyzing spending chart
 ## Flutter Setup
 
 * [x] Create Flutter project
-* [ ] Configure lint
-* [ ] Configure analysis options
-* [ ] Configure folder structure
-* [ ] Setup Riverpod
-* [ ] Setup Go Router
-* [ ] Setup Drift
-* [ ] Setup build_runner
+* [x] Configure lint
+* [x] Configure analysis options
+* [x] Configure folder structure
+* [x] Setup Riverpod
+* [x] Setup Go Router
+* [x] Setup Drift
+* [x] Setup build_runner
 
 ---
 
 ## Core Theme
 
-* [ ] Color system
-* [ ] Typography
-* [ ] Radius system
-* [ ] Spacing system
-* [ ] Shadow system
-* [ ] Light theme
-* [ ] Dark theme placeholder
+* [x] Color system
+* [x] Typography
+* [x] Radius system
+* [x] Spacing system
+* [x] Shadow system
+* [x] Light theme
+* [x] Dark theme placeholder
 
 ---
 

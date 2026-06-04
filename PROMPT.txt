@@ -1,0 +1,9 @@
+pastikan pakai terminal zsh, dan github cli untuk buat issue dan Pull request dengan alias "ghp"
+
+cek doc PRD.md, ERD.md, system-architecture.md, design.md, TODO.md nya
+
+buat issue.md yang berisi instruksi plan phase 1 dari TODO.md
+
+instruksikan terlebih dahulu untuk buat branch baru, setelah itu instruksi untuk menyelesaikan phase 0 dan 1
+
+untuk min android sdk, name app/package name, android 11 saja, ios nya rekomendasi dari agent.

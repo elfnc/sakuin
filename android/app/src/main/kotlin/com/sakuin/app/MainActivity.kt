@@ -1,4 +1,4 @@
-package com.example.sakuin
+package com.sakuin.app
 
 import io.flutter.embedding.android.FlutterActivity
 

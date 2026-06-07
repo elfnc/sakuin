@@ -292,28 +292,26 @@ Momo analyzing spending chart
 * [ ] Setup database
 * [ ] Setup migrations
 * [ ] Setup repositories
+* [x] Setup database
+* [x] Setup migrations
+* [x] Setup repositories
 
 ---
 
 ## Tables
 
-* [ ] Users
-* [ ] Wallets
-* [ ] Categories
-* [ ] Transactions
-* [ ] Savings Goals
-* [ ] Savings Contributions
-* [ ] Receipt Scans
-* [ ] Monthly Snapshots
-* [ ] App Settings
-
----
-
-## Seed Data
-
-* [ ] Default wallet
-* [ ] Default categories
-* [ ] Default settings
+* [x] Drift setup
+* [x] `Wallets` table
+* [x] `Categories` table
+* [x] `Transactions` table
+* [x] `SavingsGoals` table
+* [x] `SavingsContributions` table
+* [x] `ReceiptScans` table
+* [x] `MonthlySnapshots` table
+* [x] `AppSettings` table
+* [x] Seed initial data (default wallet, category)
+* [x] Default categories
+* [x] Default settings
 
 ---
 
@@ -321,17 +319,11 @@ Momo analyzing spending chart
 
 ## UI
 
-* [ ] Slide 1
-* [ ] Slide 2
-* [ ] Slide 3
-
----
-
-## Logic
-
-* [ ] Save onboarding state
-* [ ] Skip onboarding
-* [ ] Complete onboarding
+* [x] UI implementation (3 slides)
+* [x] Mascot illustration (placeholder)
+* [x] Logic (save onboarding state to `AppSettings`)
+* [x] Skip onboarding
+* [x] Complete onboarding
 
 ---
 

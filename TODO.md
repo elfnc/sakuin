@@ -62,10 +62,10 @@ Dompet rounded minimal dengan senyum kecil
 
 ## Logo Checklist
 
-* [ ] Primary logo
-* [ ] Monochrome logo
-* [ ] Horizontal logo
-* [ ] Symbol only logo
+* [x] Primary logo
+* [x] Monochrome logo
+* [x] Horizontal logo
+* [x] Symbol only logo
 * [ ] Dark version
 * [ ] Light version
 

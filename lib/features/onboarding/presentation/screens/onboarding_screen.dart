@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sakuin/core/constants/app_colors.dart';
 import 'package:sakuin/core/constants/app_radius.dart';
 import 'package:sakuin/core/constants/app_spacing.dart';
+import 'package:sakuin/core/constants/app_assets.dart';
 import 'package:sakuin/features/onboarding/presentation/providers/onboarding_provider.dart';
 
 import 'package:sakuin/database/database_provider.dart';
@@ -22,14 +23,17 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     {
       'title': 'Catat uang tanpa ribet',
       'color': AppColors.primary,
+      'imagePath': AppAssets.onboarding1,
     },
     {
       'title': 'Scan struk, tinggal review',
       'color': AppColors.secondary,
+      'imagePath': AppAssets.onboarding2,
     },
     {
       'title': 'Nabung jadi kelihatan',
       'color': AppColors.softAccent,
+      'imagePath': AppAssets.onboarding3,
     },
   ];
 
@@ -89,7 +93,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Mascot Placeholder
+                        // Mascot Image
                         Container(
                           width: 250,
                           height: 250,
@@ -97,11 +101,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                             color: slide['color'],
                             borderRadius: BorderRadius.circular(AppRadius.large),
                           ),
-                          child: const Center(
-                            child: Icon(
-                              Icons.image,
-                              size: 100,
-                              color: AppColors.surface,
+                          child: Center(
+                            child: Image.asset(
+                              slide['imagePath'],
+                              width: 250,
+                              height: 250,
+                              fit: BoxFit.contain,
                             ),
                           ),
                         ),

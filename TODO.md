@@ -128,8 +128,8 @@ Launcher Icon
 
 Checklist:
 
-* [ ] Android launcher icon
-* [ ] iOS launcher icon
+* [x] Android launcher icon
+* [x] iOS launcher icon
 * [ ] Adaptive icon background
 * [ ] Adaptive icon foreground
 
@@ -147,11 +147,11 @@ Momo
 
 ## Mascot Checklist
 
-* [ ] Happy
-* [ ] Calm
-* [ ] Thinking
-* [ ] Concerned
-* [ ] Success
+* [x] Happy
+* [x] Calm
+* [x] Thinking
+* [x] Concerned
+* [x] Success
 
 ---
 
@@ -193,14 +193,14 @@ Cute wallet mascot named Momo, celebrating savings goal, holding trophy and coin
 
 ## Checklist
 
-* [ ] Onboarding 1
-* [ ] Onboarding 2
-* [ ] Onboarding 3
-* [ ] Empty Transaction
-* [ ] Empty Savings
-* [ ] OCR Scanner
-* [ ] Goal Success
-* [ ] Monthly Insight
+* [x] Onboarding 1
+* [x] Onboarding 2
+* [x] Onboarding 3
+* [x] Empty Transaction
+* [x] Empty Savings
+* [x] OCR Scanner
+* [x] Goal Success
+* [x] Monthly Insight
 
 ---
 
@@ -277,10 +277,10 @@ Momo analyzing spending chart
 
 ## Assets
 
-* [ ] Import logo (backlog)
-* [ ] Import launcher icon (backlog)
-* [ ] Import mascot assets (backlog)
-* [ ] Import illustration assets (backlog)
+* [x] Import logo (backlog)
+* [x] Import launcher icon (backlog)
+* [x] Import mascot assets (backlog)
+* [x] Import illustration assets (backlog)
 * [x] Import PNG icons assets
 
 ---
@@ -289,9 +289,6 @@ Momo analyzing spending chart
 
 ## Drift
 
-* [ ] Setup database
-* [ ] Setup migrations
-* [ ] Setup repositories
 * [x] Setup database
 * [x] Setup migrations
 * [x] Setup repositories

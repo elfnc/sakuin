@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/theme/app_theme.dart';
 import 'core/router/app_router.dart';
@@ -21,7 +22,9 @@ void main() async {
     // First run or DB not ready
   }
 
-  container.read(initialRouteProvider.notifier).setRoute(isOnboardingCompleted ? '/home' : '/onboarding');
+  // Force onboarding during development, otherwise use stored setting
+  final initialRoute = kDebugMode ? '/onboarding' : (isOnboardingCompleted ? '/home' : '/onboarding');
+  container.read(initialRouteProvider.notifier).setRoute(initialRoute);
 
   runApp(
     UncontrolledProviderScope(
@@ -39,6 +42,7 @@ class SakuinApp extends ConsumerWidget {
     final router = ref.watch(routerProvider);
     return MaterialApp.router(
       title: 'Sakuin',
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system, // Will adapt to system by default

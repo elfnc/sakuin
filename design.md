@@ -575,6 +575,7 @@ Mengenalkan app dengan visual ringan.
 * top illustration
 * headline besar
 * body text pendek
+* card + icon + label (semacam track, scan, savings)
 * dot indicator
 * CTA bottom
 
@@ -658,6 +659,25 @@ Accent:
 
 ---
 
+# 16.1.5 App Navigation
+
+Aplikasi akan menggunakan **Bottom Navigation Bar** sebagai navigasi utama.
+
+## Menu Items
+* Home
+* History (Riwayat)
+* Savings (Tabungan)
+* Insights (Statistik)
+
+## Floating Quick Action
+Terdapat tombol aksi utama (FAB / Floating Action Button) yang posisinya berada di **tengah** Bottom Navigation Bar.
+Saat ditekan, akan memunculkan menu untuk:
+* Tambah Pemasukan
+* Tambah Pengeluaran
+* Scan OCR
+
+---
+
 # 16.2 Home Dashboard
 
 ## Goal
@@ -706,9 +726,9 @@ Small text:
 Masih aman untuk hari ini
 ```
 
-## Quick Actions
+## Quick Actions (Dashboard Card)
 
-3 button:
+Berbentuk **Card** minimalis di dalam dashboard yang menampilkan jalan pintas untuk pencatatan cepat:
 
 ```txt
 Keluar

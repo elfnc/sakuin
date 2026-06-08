@@ -26,6 +26,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       'body': 'Lacak setiap pengeluaran dan pemasukan dengan mudah dan rapi.',
       'cardIcon': Icons.account_balance_wallet,
       'cardLabel': 'Track',
+      'color': AppColors.primary,
       'imagePath': AppAssets.onboarding1,
     },
     {
@@ -33,6 +34,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       'body': 'Otomatis baca struk belanja kamu tanpa perlu ketik manual.',
       'cardIcon': Icons.receipt_long,
       'cardLabel': 'Scan',
+      'color': AppColors.secondary,
       'imagePath': AppAssets.onboarding2,
     },
     {
@@ -40,6 +42,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       'body': 'Pantau progress target tabungan kamu sampai terkumpul.',
       'cardIcon': Icons.savings,
       'cardLabel': 'Savings',
+      'color': AppColors.softAccent,
       'imagePath': AppAssets.onboarding3,
     },
   ];
@@ -101,11 +104,21 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         // Top Illustration
-                        Image.asset(
-                          slide['imagePath'],
-                          width: 250,
-                          height: 250,
-                          fit: BoxFit.contain,
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(vertical: AppSpacing.s24),
+                          decoration: BoxDecoration(
+                            color: slide['color'].withValues(alpha: 0.15),
+                            borderRadius: BorderRadius.circular(AppRadius.large),
+                          ),
+                          child: Center(
+                            child: Image.asset(
+                              slide['imagePath'],
+                              width: 220,
+                              height: 220,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
                         ),
                         const SizedBox(height: AppSpacing.s32),
                         // Headline

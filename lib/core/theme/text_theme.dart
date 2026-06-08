@@ -6,6 +6,7 @@ class AppTextTheme {
 
   static TextTheme get textTheme {
     return GoogleFonts.plusJakartaSansTextTheme().copyWith(
+      // Headings (Plus Jakarta Sans Bold)
       displayLarge: GoogleFonts.plusJakartaSans(
         fontSize: 32.0,
         fontWeight: FontWeight.bold,
@@ -16,15 +17,17 @@ class AppTextTheme {
       ),
       displaySmall: GoogleFonts.plusJakartaSans(
         fontSize: 24.0,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.bold,
       ),
       headlineMedium: GoogleFonts.plusJakartaSans(
         fontSize: 20.0,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.bold,
       ),
+      
+      // Body (Plus Jakarta Sans Regular/Medium)
       bodyLarge: GoogleFonts.plusJakartaSans(
         fontSize: 16.0,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.normal,
       ),
       bodyMedium: GoogleFonts.plusJakartaSans(
         fontSize: 14.0,
@@ -34,10 +37,20 @@ class AppTextTheme {
         fontSize: 12.0,
         fontWeight: FontWeight.normal,
       ),
-      labelSmall: GoogleFonts.plusJakartaSans(
-        fontSize: 11.0,
-        fontWeight: FontWeight.w500,
+      labelLarge: GoogleFonts.plusJakartaSans(
+        fontSize: 14.0,
+        fontWeight: FontWeight.w600,
       ),
     );
   }
+
+  // Brand / Logo font
+  static TextStyle get brandLogo => GoogleFonts.baloo2(
+    fontWeight: FontWeight.w800, // ExtraBold
+  );
+
+  // Angka uang font
+  static TextStyle get moneyAmount => GoogleFonts.spaceGrotesk(
+    fontWeight: FontWeight.w600, // SemiBold
+  );
 }

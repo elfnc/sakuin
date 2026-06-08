@@ -324,9 +324,17 @@ Momo analyzing spending chart
 
 ---
 
-# Phase 4 — Dashboard
+# Phase 4 — Navigation & Dashboard
 
-## Header
+## App Navigation
+
+* [ ] Bottom Navigation Bar
+* [ ] Floating Quick Action (FAB)
+* [ ] Routing implementation
+
+---
+
+## Dashboard Header
 
 * [ ] Greeting
 * [ ] Avatar
@@ -342,11 +350,11 @@ Momo analyzing spending chart
 
 ---
 
-## Quick Actions
+## Dashboard Quick Actions Card
 
-* [ ] Add income
-* [ ] Add expense
-* [ ] Scan receipt
+* [ ] Income shortcut
+* [ ] Expense shortcut
+* [ ] OCR shortcut
 
 ---
 

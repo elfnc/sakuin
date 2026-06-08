@@ -6,6 +6,7 @@ import 'package:sakuin/core/constants/app_radius.dart';
 import 'package:sakuin/core/constants/app_spacing.dart';
 import 'package:sakuin/core/constants/app_assets.dart';
 import 'package:sakuin/features/onboarding/presentation/providers/onboarding_provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:sakuin/database/database_provider.dart';
 
@@ -22,17 +23,23 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   final List<Map<String, dynamic>> _slides = [
     {
       'title': 'Catat uang tanpa ribet',
-      'color': AppColors.primary,
+      'body': 'Lacak setiap pengeluaran dan pemasukan dengan mudah dan rapi.',
+      'cardIcon': Icons.account_balance_wallet,
+      'cardLabel': 'Track',
       'imagePath': AppAssets.onboarding1,
     },
     {
       'title': 'Scan struk, tinggal review',
-      'color': AppColors.secondary,
+      'body': 'Otomatis baca struk belanja kamu tanpa perlu ketik manual.',
+      'cardIcon': Icons.receipt_long,
+      'cardLabel': 'Scan',
       'imagePath': AppAssets.onboarding2,
     },
     {
       'title': 'Nabung jadi kelihatan',
-      'color': AppColors.softAccent,
+      'body': 'Pantau progress target tabungan kamu sampai terkumpul.',
+      'cardIcon': Icons.savings,
+      'cardLabel': 'Savings',
       'imagePath': AppAssets.onboarding3,
     },
   ];
@@ -93,28 +100,65 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Mascot Image
-                        Container(
+                        // Top Illustration
+                        Image.asset(
+                          slide['imagePath'],
                           width: 250,
                           height: 250,
-                          decoration: BoxDecoration(
-                            color: slide['color'],
-                            borderRadius: BorderRadius.circular(AppRadius.large),
-                          ),
-                          child: Center(
-                            child: Image.asset(
-                              slide['imagePath'],
-                              width: 250,
-                              height: 250,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
+                          fit: BoxFit.contain,
                         ),
-                        const SizedBox(height: AppSpacing.s48),
+                        const SizedBox(height: AppSpacing.s32),
+                        // Headline
                         Text(
                           slide['title'],
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.displaySmall,
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
+                        const SizedBox(height: AppSpacing.s16),
+                        // Body Text
+                        Text(
+                          slide['body'],
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                        const SizedBox(height: AppSpacing.s32),
+                        // Card + Icon + Label
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s24, vertical: AppSpacing.s12),
+                          decoration: BoxDecoration(
+                            color: AppColors.surface,
+                            borderRadius: BorderRadius.circular(AppRadius.large),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.textPrimary.withValues(alpha: 0.05),
+                                blurRadius: 10,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(slide['cardIcon'], color: AppColors.primary),
+                              const SizedBox(width: AppSpacing.s8),
+                              Text(
+                                slide['cardLabel'],
+                                style: GoogleFonts.plusJakartaSans(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.textPrimary,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

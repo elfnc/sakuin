@@ -100,10 +100,10 @@ class HomeScreen extends ConsumerWidget {
             userAsync.when(
               data: (user) => Text(
                 user.name,
-                style: theme.textTheme.displaySmall?.copyWith(color: AppColors.surface),
+                style: theme.textTheme.headlineMedium?.copyWith(color: AppColors.surface, fontWeight: FontWeight.bold),
               ),
               loading: () => const CircularProgressIndicator(color: AppColors.surface),
-              error: (err, stack) => Text('User', style: theme.textTheme.displaySmall?.copyWith(color: AppColors.surface)),
+              error: (err, stack) => Text('User', style: theme.textTheme.headlineMedium?.copyWith(color: AppColors.surface, fontWeight: FontWeight.bold)),
             ),
           ],
         ),
@@ -139,8 +139,8 @@ class HomeScreen extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.s24),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [AppColors.primary, AppColors.softAccent], // Coral to Soft Yellow
+        gradient: LinearGradient(
+          colors: [AppColors.primary, AppColors.primary.withValues(alpha: 0.8)], // Solid Coral gradient for readability
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -234,17 +234,17 @@ class HomeScreen extends ConsumerWidget {
         children: [
           _QuickActionItem(
             icon: Icons.shopping_bag_outlined,
-            label: 'Keluar',
+            label: 'Pengeluaran',
             onTap: () => context.push('/add-transaction?type=expense'),
           ),
           _QuickActionItem(
             icon: Icons.account_balance_wallet_outlined,
-            label: 'Masuk',
+            label: 'Pemasukan',
             onTap: () => context.push('/add-transaction?type=income'),
           ),
           _QuickActionItem(
-            icon: Icons.receipt_long_outlined,
-            label: 'Scan',
+            icon: Icons.document_scanner_outlined,
+            label: 'Scan Struk',
             onTap: () {},
           ),
         ],
@@ -358,6 +358,7 @@ class _QuickActionItem extends StatelessWidget {
               label,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w600,
+                fontSize: 12,
               ),
             ),
           ],

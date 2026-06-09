@@ -24,6 +24,37 @@ class InitialRouteNotifier extends Notifier<String> {
 
 final initialRouteProvider = NotifierProvider<InitialRouteNotifier, String>(InitialRouteNotifier.new);
 
+CustomTransitionPage _buildTabTransition(GoRouterState state, Widget child) {
+  return CustomTransitionPage(
+    key: state.pageKey,
+    child: child,
+    transitionDuration: const Duration(milliseconds: 150),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return FadeTransition(
+        opacity: CurveTween(curve: Curves.easeInOut).animate(animation),
+        child: child,
+      );
+    },
+  );
+}
+
+CustomTransitionPage _buildBottomUpTransition(GoRouterState state, Widget child) {
+  return CustomTransitionPage(
+    key: state.pageKey,
+    child: child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(0.0, 1.0);
+      const end = Offset.zero;
+      const curve = Curves.easeOutCubic;
+      final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
+}
+
 final routerProvider = Provider<GoRouter>((ref) {
   final initialRoute = ref.watch(initialRouteProvider);
   return GoRouter(
@@ -46,28 +77,28 @@ final routerProvider = Provider<GoRouter>((ref) {
         routes: [
           GoRoute(
             path: '/home',
-            builder: (context, state) => const HomeScreen(),
+            pageBuilder: (context, state) => _buildTabTransition(state, const HomeScreen()),
           ),
           GoRoute(
             path: '/history',
-            builder: (context, state) => const HistoryScreen(),
+            pageBuilder: (context, state) => _buildTabTransition(state, const HistoryScreen()),
           ),
           GoRoute(
             path: '/savings',
-            builder: (context, state) => const SavingsScreen(),
+            pageBuilder: (context, state) => _buildTabTransition(state, const SavingsScreen()),
           ),
           GoRoute(
             path: '/insights',
-            builder: (context, state) => const InsightsScreen(),
+            pageBuilder: (context, state) => _buildTabTransition(state, const InsightsScreen()),
           ),
         ],
       ),
       GoRoute(
         path: '/add-transaction',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           final type = state.uri.queryParameters['type'] ?? 'expense';
-          return AddTransactionScreen(initialType: type);
+          return _buildBottomUpTransition(state, AddTransactionScreen(initialType: type));
         },
       ),
     ],

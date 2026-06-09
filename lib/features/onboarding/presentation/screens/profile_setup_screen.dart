@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -89,127 +90,192 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
-          onPressed: () => context.go('/onboarding'),
-        ),
-      ),
       body: Stack(
         children: [
           const AppBackground(),
           SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: Padding(
-                padding: const EdgeInsets.all(AppSpacing.s24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      'Kenalan Yuk!',
-                      style: GoogleFonts.plusJakartaSans(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.textPrimary,
-                      ),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.all(AppSpacing.s8),
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
+                      onPressed: () => context.go('/onboarding'),
                     ),
-                    const SizedBox(height: AppSpacing.s8),
-                    Text(
-                      'Pilih avatar Momo dan masukkan nama panggilanmu biar makin akrab.',
-                      style: GoogleFonts.plusJakartaSans(
-                        fontSize: 16,
-                        color: AppColors.textSecondary,
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.s48),
-                    
-                    // Avatar Selection
-                    Center(
-                      child: SizedBox(
-                        height: 120,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: _avatars.length,
-                          itemBuilder: (context, index) {
-                            final avatar = _avatars[index];
-                            final isSelected = avatar == _selectedAvatar;
-                            
-                            return GestureDetector(
-                              onTap: () => setState(() => _selectedAvatar = avatar),
-                              child: AnimatedContainer(
-                                duration: const Duration(milliseconds: 200),
-                                margin: const EdgeInsets.symmetric(horizontal: AppSpacing.s8),
-                                padding: const EdgeInsets.all(AppSpacing.s8),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: isSelected ? AppColors.primary.withValues(alpha: 0.1) : Colors.transparent,
-                                  border: isSelected 
-                                      ? Border.all(color: AppColors.primary, width: 2)
-                                      : Border.all(color: Colors.transparent, width: 2),
+                  ),
+                ),
+                Expanded(
+                  child: Center(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s24, vertical: AppSpacing.s16),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(32),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                          child: Container(
+                            padding: const EdgeInsets.all(AppSpacing.s32),
+                            decoration: BoxDecoration(
+                              color: AppColors.surface.withValues(alpha: 0.85),
+                              borderRadius: BorderRadius.circular(32),
+                              border: Border.all(color: AppColors.surface.withValues(alpha: 0.5), width: 1.5),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.primary.withValues(alpha: 0.1),
+                                  blurRadius: 30,
+                                  offset: const Offset(0, 15),
                                 ),
-                                child: CircleAvatar(
-                                  radius: 40,
-                                  backgroundColor: AppColors.surface,
-                                  child: Image.asset(avatar, width: 60, height: 60),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Kenalan Yuk!',
+                                  style: GoogleFonts.plusJakartaSans(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w800,
+                                    color: AppColors.primary,
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    
-                    const SizedBox(height: AppSpacing.s48),
-                    
-                    // Name Input
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s16, vertical: AppSpacing.s4),
-                      decoration: BoxDecoration(
-                        color: AppColors.surface,
-                        borderRadius: BorderRadius.circular(AppRadius.large),
-                        border: Border.all(color: AppColors.border),
-                      ),
-                      child: TextField(
-                        controller: _nameController,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Nama panggilan',
-                          icon: Icon(Icons.person_outline, color: AppColors.primary),
-                        ),
-                      ),
-                    ),
-                    
-                    const Spacer(),
-                    const SizedBox(height: AppSpacing.s24), // Added padding for scroll
-                    
-                    // Save Button
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: _isLoading ? null : _saveProfile,
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: AppSpacing.s16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(AppRadius.large),
+                                const SizedBox(height: AppSpacing.s8),
+                                Text(
+                                  'Pilih avatar Momo dan masukkan nama panggilanmu.',
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.plusJakartaSans(
+                                    fontSize: 14,
+                                    color: AppColors.textSecondary,
+                                  ),
+                                ),
+                                const SizedBox(height: AppSpacing.s32),
+                                
+                                // Avatar Grid
+                                Wrap(
+                                  spacing: 16,
+                                  runSpacing: 16,
+                                  alignment: WrapAlignment.center,
+                                  children: _avatars.map((avatar) {
+                                    final isSelected = avatar == _selectedAvatar;
+                                    return GestureDetector(
+                                      onTap: () => setState(() => _selectedAvatar = avatar),
+                                      child: AnimatedContainer(
+                                        duration: const Duration(milliseconds: 300),
+                                        curve: Curves.easeOutBack,
+                                        transform: Matrix4.diagonal3Values(isSelected ? 1.1 : 0.9, isSelected ? 1.1 : 0.9, 1.0),
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: isSelected ? AppColors.primary.withValues(alpha: 0.15) : Colors.transparent,
+                                          boxShadow: isSelected ? [
+                                            BoxShadow(
+                                              color: AppColors.primary.withValues(alpha: 0.3),
+                                              blurRadius: 15,
+                                              spreadRadius: 2,
+                                            )
+                                          ] : [],
+                                          border: Border.all(
+                                            color: isSelected ? AppColors.primary : Colors.transparent,
+                                            width: 3,
+                                          ),
+                                        ),
+                                        child: CircleAvatar(
+                                          radius: 36,
+                                          backgroundColor: AppColors.surface.withValues(alpha: 0.5),
+                                          child: Stack(
+                                            alignment: Alignment.center,
+                                            children: [
+                                              AnimatedOpacity(
+                                                duration: const Duration(milliseconds: 200),
+                                                opacity: isSelected ? 1.0 : 0.6,
+                                                child: Image.asset(avatar, width: 50, height: 50),
+                                              ),
+                                              if (isSelected)
+                                                Positioned(
+                                                  bottom: 0,
+                                                  right: 0,
+                                                  child: Container(
+                                                    padding: const EdgeInsets.all(2),
+                                                    decoration: const BoxDecoration(
+                                                      color: AppColors.primary,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: const Icon(Icons.check, color: AppColors.surface, size: 14),
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                                
+                                const SizedBox(height: AppSpacing.s48),
+                                
+                                // Name Input
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s16, vertical: AppSpacing.s4),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.background, // Slightly darker than surface
+                                    borderRadius: BorderRadius.circular(AppRadius.large),
+                                    border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
+                                  ),
+                                  child: TextField(
+                                    controller: _nameController,
+                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.textPrimary,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'Nama panggilan',
+                                      hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                        color: AppColors.textSecondary.withValues(alpha: 0.5),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                
+                                const SizedBox(height: AppSpacing.s32),
+                                
+                                // Save Button
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    onPressed: _isLoading ? null : _saveProfile,
+                                    style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(vertical: AppSpacing.s16),
+                                      backgroundColor: AppColors.primary,
+                                      elevation: 8,
+                                      shadowColor: AppColors.primary.withValues(alpha: 0.5),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(AppRadius.large),
+                                      ),
+                                    ),
+                                    child: _isLoading 
+                                        ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                                        : Text(
+                                            'Mulai Sekarang!', 
+                                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                              color: AppColors.surface,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        child: _isLoading 
-                            ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-                            : Text('Simpan & Lanjut', style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColors.surface)),
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
         ],
       ),
     );

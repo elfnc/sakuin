@@ -113,28 +113,26 @@ class MainNavigationScreen extends StatelessWidget {
         child: const Icon(Icons.add, color: AppColors.surface),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.fromLTRB(24, 0, 24, 24),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(32),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.primary.withValues(alpha: 0.15),
-                blurRadius: 20,
-                offset: const Offset(0, 10),
-              ),
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(32),
-            child: BottomAppBar(
-              elevation: 0,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              color: AppColors.surface,
-              shape: const CircularNotchedRectangle(),
-              notchMargin: 8.0,
-              child: SizedBox(
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.primary.withValues(alpha: 0.10),
+              blurRadius: 20,
+              offset: const Offset(0, -5),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+          child: BottomAppBar(
+            elevation: 0,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            color: AppColors.surface,
+            shape: const CircularNotchedRectangle(),
+            notchMargin: 8.0,
+            child: SizedBox(
               height: 64,
               child: Row(
                 children: [
@@ -148,7 +146,6 @@ class MainNavigationScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
       ),
     );
   }

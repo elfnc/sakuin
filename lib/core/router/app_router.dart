@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sakuin/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:sakuin/features/onboarding/presentation/screens/profile_setup_screen.dart';
 import 'package:sakuin/features/home/presentation/screens/home_screen.dart';
 import 'package:sakuin/features/navigation/presentation/screens/main_navigation_screen.dart';
 import 'package:sakuin/features/transaction/presentation/screens/history_screen.dart';
@@ -32,6 +33,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/onboarding',
         builder: (context, state) => const OnboardingScreen(),
+      ),
+      GoRoute(
+        path: '/profile-setup',
+        builder: (context, state) => const ProfileSetupScreen(),
       ),
       ShellRoute(
         navigatorKey: _shellNavigatorKey,

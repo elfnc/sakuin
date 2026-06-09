@@ -79,10 +79,23 @@ class HomeScreen extends ConsumerWidget {
             ),
           ],
         ),
-        const CircleAvatar(
-          radius: 24,
-          backgroundColor: AppColors.border,
-          child: Icon(Icons.person, color: AppColors.textSecondary),
+        userAsync.when(
+          data: (user) => CircleAvatar(
+            radius: 24,
+            backgroundColor: user.avatar != null ? Colors.transparent : AppColors.border,
+            child: user.avatar != null 
+                ? Image.asset(user.avatar!, width: 48, height: 48)
+                : const Icon(Icons.person, color: AppColors.textSecondary),
+          ),
+          loading: () => const CircleAvatar(
+            radius: 24,
+            backgroundColor: AppColors.border,
+          ),
+          error: (err, stack) => const CircleAvatar(
+            radius: 24,
+            backgroundColor: AppColors.border,
+            child: Icon(Icons.person, color: AppColors.textSecondary),
+          ),
         ),
       ],
     );

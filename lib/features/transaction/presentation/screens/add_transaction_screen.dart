@@ -3,10 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:drift/drift.dart' as drift;
+import 'package:flutter/services.dart';
 import 'package:sakuin/core/constants/app_colors.dart';
 import 'package:sakuin/core/constants/app_spacing.dart';
 import 'package:sakuin/core/constants/app_radius.dart';
 import 'package:sakuin/core/theme/text_theme.dart';
+import 'package:sakuin/core/providers/user_provider.dart';
 import 'package:sakuin/database/database_provider.dart';
 import 'package:sakuin/database/app_database.dart';
 
@@ -63,6 +65,12 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
       _amountController.text = '';
       return;
     }
+    
+    // Prevent numbers that are too large (limit to 13 digits which is roughly 9 Trillion IDR)
+    if (numericString.length > 13) {
+      return;
+    }
+
     _amount = double.parse(numericString);
     final formatted = NumberFormat('#,###', 'id_ID').format(_amount);
     
@@ -82,33 +90,47 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
 
     final db = ref.read(databaseProvider);
     
-    await db.transaction(() async {
-      // 1. Insert transaction
-      await db.into(db.transactions).insert(
-        TransactionsCompanion.insert(
-          userId: 1, // Default user
-          amount: _amount,
-          type: _type,
-          categoryId: _selectedCategoryId!,
-          walletId: _selectedWalletId!,
-          transactionDate: _selectedDate,
-          note: drift.Value(_noteController.text.isNotEmpty ? _noteController.text : null),
-        ),
-      );
+    try {
+      // Get the dynamic user instead of hardcoding 1
+      final currentUser = await ref.read(currentUserProvider.future);
+      
+      await db.transaction(() async {
+        // 1. Insert transaction
+        await db.into(db.transactions).insert(
+          TransactionsCompanion.insert(
+            userId: currentUser.id,
+            amount: _amount,
+            type: _type,
+            categoryId: _selectedCategoryId!,
+            walletId: _selectedWalletId!,
+            transactionDate: _selectedDate,
+            note: drift.Value(_noteController.text.isNotEmpty ? _noteController.text : null),
+          ),
+        );
 
-      // 2. Update wallet balance
-      final wallet = await (db.select(db.wallets)..where((w) => w.id.equals(_selectedWalletId!))).getSingle();
-      final newBalance = _type == 'income' 
-          ? wallet.balance + _amount 
-          : wallet.balance - _amount;
+        // 2. Update wallet balance
+        final wallet = await (db.select(db.wallets)..where((w) => w.id.equals(_selectedWalletId!))).getSingle();
+        final newBalance = _type == 'income' 
+            ? wallet.balance + _amount 
+            : wallet.balance - _amount;
 
-      await (db.update(db.wallets)..where((w) => w.id.equals(_selectedWalletId!))).write(
-        WalletsCompanion(balance: drift.Value(newBalance)),
-      );
-    });
+        await (db.update(db.wallets)..where((w) => w.id.equals(_selectedWalletId!))).write(
+          WalletsCompanion(balance: drift.Value(newBalance)),
+        );
+      });
 
-    if (mounted) {
-      context.pop();
+      if (mounted) {
+        context.pop();
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Gagal menyimpan transaksi: $e'),
+            backgroundColor: AppColors.expense,
+          ),
+        );
+      }
     }
   }
 
@@ -173,6 +195,9 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                                   keyboardType: TextInputType.number,
                                   onChanged: _onAmountChanged,
                                   textAlign: TextAlign.center,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(17), // Allow for formatted string length up to 13 digits + separators
+                                  ],
                                   style: AppTextTheme.moneyAmount.copyWith(
                                     fontSize: 48,
                                     color: _type == 'income' ? AppColors.income : AppColors.expense,

@@ -6,6 +6,7 @@ import 'package:sakuin/core/constants/app_colors.dart';
 import 'package:sakuin/core/constants/app_spacing.dart';
 import 'package:sakuin/core/constants/app_radius.dart';
 import 'package:sakuin/core/constants/app_assets.dart';
+import 'package:sakuin/core/providers/user_provider.dart';
 import 'package:sakuin/database/database_provider.dart';
 import 'package:sakuin/database/app_database.dart';
 import 'package:drift/drift.dart' as drift;
@@ -32,7 +33,7 @@ class HomeScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                _buildHeader(context, theme),
+                _buildHeader(context, theme, ref),
                 const SizedBox(height: AppSpacing.s24),
                 _buildBalanceCard(context, db, theme),
                 const SizedBox(height: AppSpacing.s24),
@@ -52,7 +53,9 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildHeader(BuildContext context, ThemeData theme) {
+  Widget _buildHeader(BuildContext context, ThemeData theme, WidgetRef ref) {
+    final userAsync = ref.watch(currentUserProvider);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -66,9 +69,13 @@ class HomeScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 4),
-            Text(
-              'User', // TODO: Fetch from Users table
-              style: theme.textTheme.displaySmall,
+            userAsync.when(
+              data: (user) => Text(
+                user.name,
+                style: theme.textTheme.displaySmall,
+              ),
+              loading: () => const CircularProgressIndicator(),
+              error: (err, stack) => Text('User', style: theme.textTheme.displaySmall),
             ),
           ],
         ),

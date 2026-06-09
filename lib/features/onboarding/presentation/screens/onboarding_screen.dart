@@ -8,7 +8,6 @@ import 'package:sakuin/core/constants/app_assets.dart';
 import 'package:sakuin/features/onboarding/presentation/providers/onboarding_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:sakuin/database/database_provider.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -54,15 +53,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Future<void> _onSkipOrComplete() async {
-    final db = ref.read(databaseProvider);
-    final settings = await db.select(db.appSettings).getSingleOrNull();
-    if (settings != null) {
-      await db.update(db.appSettings).replace(
-        settings.copyWith(isOnboardingCompleted: true),
-      );
-    }
     if (mounted) {
-      context.go('/home');
+      context.go('/profile-setup');
     }
   }
 

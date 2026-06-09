@@ -25,5 +25,22 @@ class AppAssets {
   static const String onboarding3 = 'assets/images/onboarding/onboarding-3.png';
 
   // Icons
-  // Additional icons from assets/icons/ can be added here
+  static const String iconAnalytics = 'assets/icons/analytics-48x48.png';
+  static const String iconBankBuilding = 'assets/icons/bank-building-48x48.png';
+  static const String iconBill = 'assets/icons/bill-48x48.png';
+  static const String iconBonusMoney = 'assets/icons/bonus-money-48x48.png';
+  static const String iconCardWallet = 'assets/icons/card-wallet-48x48.png';
+  static const String iconCash = 'assets/icons/cash-48x48.png';
+  static const String iconCoffeeCup = 'assets/icons/coffee-cup-48x48.png';
+  static const String iconCoinJar = 'assets/icons/coin-jar-48x48.png';
+  static const String iconDoctorBag = 'assets/icons/doctor-bag-48x48.png';
+  static const String iconDocumentScanner = 'assets/icons/document-scanner-48x48.png';
+  static const String iconFoodBowl = 'assets/icons/food-bowl-48x48.png';
+  static const String iconMovieTicket = 'assets/icons/movie-ticket-48x48.png';
+  static const String iconOcrScanner = 'assets/icons/ocr-scanner-48x48.png';
+  static const String iconPiggyBank = 'assets/icons/piggy-bank-48x48.png';
+  static const String iconReceiptScanner = 'assets/icons/receipt-scanner-48x48.png';
+  static const String iconSalaryWallet = 'assets/icons/salary-wallet-48x48.png';
+  static const String iconShoppingBag = 'assets/icons/shopping-bag-48x48.png';
+  static const String iconTransportTicket = 'assets/icons/transport-ticket-48x48.png';
 }

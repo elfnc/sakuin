@@ -20,7 +20,7 @@ class SavingsScreen extends StatelessWidget {
             height: 180,
             child: Container(
               decoration: const BoxDecoration(
-                color: AppColors.primary,
+                color: AppColors.income,
                 borderRadius: BorderRadius.vertical(bottom: Radius.circular(32)),
               ),
             ),

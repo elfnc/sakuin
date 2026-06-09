@@ -20,7 +20,7 @@ class InsightsScreen extends StatelessWidget {
             height: 180,
             child: Container(
               decoration: const BoxDecoration(
-                color: AppColors.primary,
+                color: AppColors.secondary,
                 borderRadius: BorderRadius.vertical(bottom: Radius.circular(32)),
               ),
             ),

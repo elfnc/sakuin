@@ -137,7 +137,6 @@ class MainNavigationScreen extends StatelessWidget {
               child: SizedBox(
               height: 64,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _buildNavItem(context, icon: Icons.home_outlined, activeIcon: Icons.home, label: 'Home', index: 0, currentIndex: currentIndex),
                   _buildNavItem(context, icon: Icons.history_outlined, activeIcon: Icons.history, label: 'Riwayat', index: 1, currentIndex: currentIndex),
@@ -163,24 +162,32 @@ class MainNavigationScreen extends StatelessWidget {
     required int currentIndex,
   }) {
     final isSelected = index == currentIndex;
-    return InkWell(
-      onTap: () => _onItemTapped(index, context),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            isSelected ? activeIcon : icon,
-            color: isSelected ? AppColors.primary : AppColors.textSecondary,
+    return Expanded(
+      child: InkWell(
+        onTap: () => _onItemTapped(index, context),
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                isSelected ? activeIcon : icon,
+                color: isSelected ? AppColors.primary : AppColors.textSecondary,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: isSelected ? AppColors.primary : AppColors.textSecondary,
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                ),
+              ),
+            ],
           ),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              color: isSelected ? AppColors.primary : AppColors.textSecondary,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

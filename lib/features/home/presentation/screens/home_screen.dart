@@ -21,32 +21,60 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: () async {
-            // Trigger rebuild by reading from DB if needed, but streams handle this mostly.
-            // Just a placeholder to give the user a way to refresh manually.
-          },
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.all(AppSpacing.s24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _buildHeader(context, theme, ref),
-                const SizedBox(height: AppSpacing.s24),
-                _buildBalanceCard(context, db, theme),
-                const SizedBox(height: AppSpacing.s24),
-                _buildQuickActions(context),
-                const SizedBox(height: AppSpacing.s32),
-                Text(
-                  'Recent Transactions',
-                  style: theme.textTheme.headlineMedium,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          ref.invalidate(currentUserProvider);
+        },
+        child: SingleChildScrollView(
+          child: Stack(
+            children: [
+              // Curved Header Background
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                height: 220,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: AppColors.primary,
+                    borderRadius: BorderRadius.vertical(bottom: Radius.circular(32)),
+                  ),
                 ),
-                const SizedBox(height: AppSpacing.s16),
-                _buildRecentTransactions(context, db, theme),
-              ],
-            ),
+              ),
+              // Content
+              SafeArea(
+                bottom: false,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s24, vertical: AppSpacing.s16),
+                      child: _buildHeader(context, theme, ref),
+                    ),
+                    const SizedBox(height: AppSpacing.s16),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s24),
+                      child: _buildBalanceCard(context, db, theme),
+                    ),
+                    const SizedBox(height: AppSpacing.s24),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s24),
+                      child: _buildQuickActions(context),
+                    ),
+                    const SizedBox(height: AppSpacing.s32),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s24),
+                      child: Text(
+                        'Recent Transactions',
+                        style: theme.textTheme.headlineMedium,
+                      ),
+                    ),
+                    const SizedBox(height: AppSpacing.s16),
+                    _buildRecentTransactions(context, db, theme),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -63,38 +91,44 @@ class HomeScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Good morning,',
+              'Halo,',
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: AppColors.textSecondary,
+                color: AppColors.surface.withValues(alpha: 0.8),
               ),
             ),
             const SizedBox(height: 4),
             userAsync.when(
               data: (user) => Text(
                 user.name,
-                style: theme.textTheme.displaySmall,
+                style: theme.textTheme.displaySmall?.copyWith(color: AppColors.surface),
               ),
-              loading: () => const CircularProgressIndicator(),
-              error: (err, stack) => Text('User', style: theme.textTheme.displaySmall),
+              loading: () => const CircularProgressIndicator(color: AppColors.surface),
+              error: (err, stack) => Text('User', style: theme.textTheme.displaySmall?.copyWith(color: AppColors.surface)),
             ),
           ],
         ),
         userAsync.when(
-          data: (user) => CircleAvatar(
-            radius: 24,
-            backgroundColor: user.avatar != null ? Colors.transparent : AppColors.border,
-            child: user.avatar != null 
-                ? Image.asset(user.avatar!, width: 48, height: 48)
-                : const Icon(Icons.person, color: AppColors.textSecondary),
+          data: (user) => Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: AppColors.surface.withValues(alpha: 0.5), width: 2),
+            ),
+            child: CircleAvatar(
+              radius: 24,
+              backgroundColor: user.avatar != null ? Colors.transparent : AppColors.surface.withValues(alpha: 0.2),
+              child: user.avatar != null 
+                  ? Image.asset(user.avatar!, width: 48, height: 48)
+                  : const Icon(Icons.person, color: AppColors.surface),
+            ),
           ),
           loading: () => const CircleAvatar(
             radius: 24,
-            backgroundColor: AppColors.border,
+            backgroundColor: Colors.transparent,
           ),
           error: (err, stack) => const CircleAvatar(
             radius: 24,
-            backgroundColor: AppColors.border,
-            child: Icon(Icons.person, color: AppColors.textSecondary),
+            backgroundColor: Colors.transparent,
+            child: Icon(Icons.person, color: AppColors.surface),
           ),
         ),
       ],

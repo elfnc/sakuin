@@ -199,17 +199,17 @@ class HomeScreen extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _QuickActionItem(
-            imagePath: AppAssets.iconShoppingBag,
+            icon: Icons.shopping_bag_outlined,
             label: 'Keluar',
             onTap: () => context.push('/add-transaction?type=expense'),
           ),
           _QuickActionItem(
-            imagePath: AppAssets.iconSalaryWallet,
+            icon: Icons.account_balance_wallet_outlined,
             label: 'Masuk',
             onTap: () => context.push('/add-transaction?type=income'),
           ),
           _QuickActionItem(
-            imagePath: AppAssets.iconOcrScanner,
+            icon: Icons.receipt_long_outlined,
             label: 'Scan',
             onTap: () {},
           ),
@@ -299,12 +299,12 @@ class HomeScreen extends ConsumerWidget {
 
 class _QuickActionItem extends StatelessWidget {
   const _QuickActionItem({
-    required this.imagePath,
+    required this.icon,
     required this.label,
     required this.onTap,
   });
 
-  final String imagePath;
+  final IconData icon;
   final String label;
   final VoidCallback onTap;
 
@@ -318,7 +318,7 @@ class _QuickActionItem extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset(imagePath, width: 32, height: 32),
+            Icon(icon, color: AppColors.primary, size: 28),
             const SizedBox(height: AppSpacing.s8),
             Text(
               label,

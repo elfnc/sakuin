@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:sakuin/core/constants/app_colors.dart';
 import 'package:sakuin/core/constants/app_radius.dart';
 import 'package:sakuin/core/constants/app_spacing.dart';
-import 'package:sakuin/core/constants/app_assets.dart';
 
 class MainNavigationScreen extends StatelessWidget {
   const MainNavigationScreen({
@@ -54,8 +53,8 @@ class MainNavigationScreen extends StatelessWidget {
               children: [
                 ListTile(
                   leading: const CircleAvatar(
-                    backgroundColor: AppColors.surface,
-                    child: Image(image: AssetImage(AppAssets.iconSalaryWallet), width: 24, height: 24),
+                    backgroundColor: AppColors.income,
+                    child: Icon(Icons.add, color: AppColors.surface),
                   ),
                   title: const Text('Tambah Pemasukan'),
                   onTap: () {
@@ -65,8 +64,8 @@ class MainNavigationScreen extends StatelessWidget {
                 ),
                 ListTile(
                   leading: const CircleAvatar(
-                    backgroundColor: AppColors.surface,
-                    child: Image(image: AssetImage(AppAssets.iconShoppingBag), width: 24, height: 24),
+                    backgroundColor: AppColors.expense,
+                    child: Icon(Icons.remove, color: AppColors.surface),
                   ),
                   title: const Text('Tambah Pengeluaran'),
                   onTap: () {
@@ -76,8 +75,8 @@ class MainNavigationScreen extends StatelessWidget {
                 ),
                 ListTile(
                   leading: const CircleAvatar(
-                    backgroundColor: AppColors.surface,
-                    child: Image(image: AssetImage(AppAssets.iconOcrScanner), width: 24, height: 24),
+                    backgroundColor: AppColors.info,
+                    child: Icon(Icons.document_scanner, color: AppColors.surface),
                   ),
                   title: const Text('Scan OCR'),
                   onTap: () {

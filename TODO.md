@@ -328,40 +328,40 @@ Momo analyzing spending chart
 
 ## App Navigation
 
-* [ ] Bottom Navigation Bar
-* [ ] Floating Quick Action (FAB)
-* [ ] Routing implementation
+* [x] Bottom Navigation Bar
+* [x] Floating Quick Action (FAB)
+* [x] Routing implementation
 
 ---
 
 ## Dashboard Header
 
-* [ ] Greeting
-* [ ] Avatar
-* [ ] Mascot state
+* [x] Greeting
+* [x] Avatar
+* [x] Mascot state
 
 ---
 
 ## Balance Card
 
-* [ ] Balance UI
-* [ ] Animated counter
-* [ ] Dynamic state
+* [x] Balance UI
+* [x] Animated counter
+* [x] Dynamic state
 
 ---
 
 ## Dashboard Quick Actions Card
 
-* [ ] Income shortcut
-* [ ] Expense shortcut
-* [ ] OCR shortcut
+* [x] Income shortcut
+* [x] Expense shortcut
+* [x] OCR shortcut
 
 ---
 
 ## Recent Transactions
 
-* [ ] List
-* [ ] Empty state
+* [x] List
+* [x] Empty state
 
 ---
 
@@ -369,26 +369,26 @@ Momo analyzing spending chart
 
 ## Income
 
-* [ ] Add income
-* [ ] Save income
-* [ ] Update wallet
+* [x] Add income
+* [x] Save income
+* [x] Update wallet
 
 ---
 
 ## Expense
 
-* [ ] Add expense
-* [ ] Save expense
-* [ ] Update wallet
+* [x] Add expense
+* [x] Save expense
+* [x] Update wallet
 
 ---
 
 ## Shared
 
-* [ ] Category picker
-* [ ] Wallet picker
-* [ ] Note field
-* [ ] Date picker
+* [x] Category picker
+* [x] Wallet picker
+* [x] Note field
+* [x] Date picker
 
 ---
 

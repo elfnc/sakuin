@@ -98,6 +98,7 @@ class MainNavigationScreen extends StatelessWidget {
     final currentIndex = _calculateSelectedIndex(context);
 
     return Scaffold(
+      extendBody: true,
       body: Stack(
         children: [
           const AppBackground(),
@@ -107,50 +108,48 @@ class MainNavigationScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showQuickActions(context),
         backgroundColor: AppColors.primary,
+        shape: const CircleBorder(),
+        elevation: 4,
         child: const Icon(Icons.add, color: AppColors.surface),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 8.0,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildNavItem(
-              context,
-              icon: Icons.home_outlined,
-              activeIcon: Icons.home,
-              label: 'Home',
-              index: 0,
-              currentIndex: currentIndex,
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          margin: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(32),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.primary.withValues(alpha: 0.15),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(32),
+            child: BottomAppBar(
+              elevation: 0,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              color: AppColors.surface,
+              shape: const CircularNotchedRectangle(),
+              notchMargin: 8.0,
+              child: SizedBox(
+              height: 64,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildNavItem(context, icon: Icons.home_outlined, activeIcon: Icons.home, label: 'Home', index: 0, currentIndex: currentIndex),
+                  _buildNavItem(context, icon: Icons.history_outlined, activeIcon: Icons.history, label: 'Riwayat', index: 1, currentIndex: currentIndex),
+                  const SizedBox(width: 48), // Space for FAB
+                  _buildNavItem(context, icon: Icons.savings_outlined, activeIcon: Icons.savings, label: 'Tabungan', index: 2, currentIndex: currentIndex),
+                  _buildNavItem(context, icon: Icons.insights_outlined, activeIcon: Icons.insights, label: 'Insight', index: 3, currentIndex: currentIndex),
+                ],
+              ),
             ),
-            _buildNavItem(
-              context,
-              icon: Icons.history_outlined,
-              activeIcon: Icons.history,
-              label: 'History',
-              index: 1,
-              currentIndex: currentIndex,
-            ),
-            const SizedBox(width: 48), // Space for FAB
-            _buildNavItem(
-              context,
-              icon: Icons.savings_outlined,
-              activeIcon: Icons.savings,
-              label: 'Savings',
-              index: 2,
-              currentIndex: currentIndex,
-            ),
-            _buildNavItem(
-              context,
-              icon: Icons.insights_outlined,
-              activeIcon: Icons.insights,
-              label: 'Insights',
-              index: 3,
-              currentIndex: currentIndex,
-            ),
-          ],
+          ),
         ),
+      ),
       ),
     );
   }

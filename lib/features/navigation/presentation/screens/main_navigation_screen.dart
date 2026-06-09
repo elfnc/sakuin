@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sakuin/core/constants/app_colors.dart';
 import 'package:sakuin/core/constants/app_radius.dart';
 import 'package:sakuin/core/constants/app_spacing.dart';
+import 'package:sakuin/core/widgets/app_background.dart';
 
 class MainNavigationScreen extends StatelessWidget {
   const MainNavigationScreen({
@@ -97,7 +98,12 @@ class MainNavigationScreen extends StatelessWidget {
     final currentIndex = _calculateSelectedIndex(context);
 
     return Scaffold(
-      body: child,
+      body: Stack(
+        children: [
+          const AppBackground(),
+          child,
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showQuickActions(context),
         backgroundColor: AppColors.primary,

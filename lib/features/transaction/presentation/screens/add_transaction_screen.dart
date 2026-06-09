@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:sakuin/core/constants/app_colors.dart';
 import 'package:sakuin/core/constants/app_spacing.dart';
 import 'package:sakuin/core/constants/app_radius.dart';
+import 'package:sakuin/core/widgets/app_background.dart';
 import 'package:sakuin/core/theme/text_theme.dart';
 import 'package:sakuin/core/providers/user_provider.dart';
 import 'package:sakuin/database/database_provider.dart';
@@ -140,7 +141,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     final db = ref.watch(databaseProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -154,8 +155,11 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         ),
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: Column(
+      body: Stack(
+        children: [
+          const AppBackground(),
+          SafeArea(
+            child: Column(
           children: [
             Expanded(
               child: SingleChildScrollView(
@@ -445,6 +449,8 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
             ),
           ],
         ),
+      ),
+        ],
       ),
     );
   }

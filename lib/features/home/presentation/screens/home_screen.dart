@@ -20,7 +20,7 @@ class HomeScreen extends ConsumerWidget {
     final db = ref.watch(databaseProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Colors.transparent,
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {

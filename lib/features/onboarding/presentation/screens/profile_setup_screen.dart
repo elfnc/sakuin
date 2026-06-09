@@ -6,6 +6,7 @@ import 'package:sakuin/core/constants/app_colors.dart';
 import 'package:sakuin/core/constants/app_radius.dart';
 import 'package:sakuin/core/constants/app_spacing.dart';
 import 'package:sakuin/core/constants/app_assets.dart';
+import 'package:sakuin/core/widgets/app_background.dart';
 import 'package:sakuin/database/database_provider.dart';
 import 'package:sakuin/database/app_database.dart';
 import 'package:drift/drift.dart' as drift;
@@ -87,7 +88,7 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -96,7 +97,10 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
           onPressed: () => context.go('/onboarding'),
         ),
       ),
-      body: SafeArea(
+      body: Stack(
+        children: [
+          const AppBackground(),
+          SafeArea(
         child: CustomScrollView(
           slivers: [
             SliverFillRemaining(
@@ -205,6 +209,8 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
             ),
           ],
         ),
+      ),
+        ],
       ),
     );
   }

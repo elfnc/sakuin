@@ -139,8 +139,8 @@ class HomeScreen extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.s24),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [AppColors.primary, AppColors.primary.withValues(alpha: 0.8)], // Solid Coral gradient for readability
+        gradient: const LinearGradient(
+          colors: [AppColors.primary, AppColors.softAccent], // Coral to Soft Yellow
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),

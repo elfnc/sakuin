@@ -396,20 +396,20 @@ Momo analyzing spending chart
 
 ## History
 
-* [ ] Search
-* [ ] Filters
-* [ ] Pagination
+* [x] Search
+* [x] Filters
+* [x] Pagination
 
 ---
 
 ## Filters
 
-* [ ] Today
-* [ ] Week
-* [ ] Month
-* [ ] Income
-* [ ] Expense
-* [ ] Savings
+* [x] Today
+* [x] Week
+* [x] Month
+* [x] Income
+* [x] Expense
+* [x] Savings
 
 ---
 
@@ -417,25 +417,25 @@ Momo analyzing spending chart
 
 ## Goal
 
-* [ ] Create goal
-* [ ] Update goal
-* [ ] Complete goal
-* [ ] Archive goal
+* [x] Create goal
+* [x] Update goal
+* [x] Complete goal
+* [x] Archive goal
 
 ---
 
 ## Contribution
 
-* [ ] Add contribution
-* [ ] Progress update
-* [ ] Goal validation
+* [x] Add contribution
+* [x] Progress update
+* [x] Goal validation
 
 ---
 
 ## Animation
 
-* [ ] Progress fill
-* [ ] Success state
+* [x] Progress fill
+* [x] Success state
 * [ ] Celebration state
 
 ---

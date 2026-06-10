@@ -9,7 +9,7 @@ import 'package:sakuin/features/transaction/presentation/screens/history_screen.
 import 'package:sakuin/features/savings/presentation/screens/savings_screen.dart';
 import 'package:sakuin/features/insight/presentation/screens/insights_screen.dart';
 import 'package:sakuin/features/transaction/presentation/screens/add_transaction_screen.dart';
-
+import 'package:sakuin/features/savings/presentation/screens/add_saving_goal_screen.dart';
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -100,6 +100,11 @@ final routerProvider = Provider<GoRouter>((ref) {
           final type = state.uri.queryParameters['type'] ?? 'expense';
           return _buildBottomUpTransition(state, AddTransactionScreen(initialType: type));
         },
+      ),
+      GoRoute(
+        path: '/add-savings-goal',
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => _buildBottomUpTransition(state, const AddSavingGoalScreen()),
       ),
     ],
   );

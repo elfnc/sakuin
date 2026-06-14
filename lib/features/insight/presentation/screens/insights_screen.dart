@@ -29,22 +29,21 @@ class InsightsScreen extends ConsumerWidget {
                   Text(
                     'Insights',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: AppColors.textPrimary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.chevron_left, color: AppColors.textPrimary),
+                        icon: const Icon(Icons.chevron_left),
                         onPressed: () => ref.read(insightProvider.notifier).changeMonth(-1),
                       ),
                       Text(
                         DateFormat('MMM yyyy', 'id_ID').format(state.currentMonth),
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.chevron_right, color: AppColors.textPrimary),
+                        icon: const Icon(Icons.chevron_right),
                         onPressed: () => ref.read(insightProvider.notifier).changeMonth(1),
                       ),
                     ],
@@ -105,7 +104,6 @@ class InsightsScreen extends ConsumerWidget {
                                 'Pengeluaran Kategori',
                                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                   fontWeight: FontWeight.bold,
-                                  color: AppColors.textPrimary,
                                 ),
                               ),
                               const SizedBox(height: AppSpacing.s24),
@@ -130,7 +128,6 @@ class InsightsScreen extends ConsumerWidget {
                                 'Tren Mingguan',
                                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                   fontWeight: FontWeight.bold,
-                                  color: AppColors.textPrimary,
                                 ),
                               ),
                               const SizedBox(height: AppSpacing.s24),
@@ -289,7 +286,6 @@ class InsightsScreen extends ConsumerWidget {
             'Belum ada data',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
             ),
           ),
           const SizedBox(height: AppSpacing.s8),

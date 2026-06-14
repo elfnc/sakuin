@@ -436,7 +436,7 @@ Momo analyzing spending chart
 
 * [x] Progress fill
 * [x] Success state
-* [ ] Celebration state
+* [x] Celebration state
 
 ---
 
@@ -444,26 +444,26 @@ Momo analyzing spending chart
 
 ## OCR Engine
 
-* [ ] Camera picker
-* [ ] Gallery picker
-* [ ] ML Kit setup
+* [x] Camera picker
+* [x] Gallery picker
+* [x] ML Kit setup
 
 ---
 
 ## OCR Parsing
 
-* [ ] Parse amount
-* [ ] Parse merchant
-* [ ] Parse receipt date
-* [ ] Confidence score
+* [x] Parse amount
+* [x] Parse merchant
+* [x] Parse receipt date
+* [x] Confidence score
 
 ---
 
 ## OCR Review
 
-* [ ] Bottom sheet
-* [ ] Edit result
-* [ ] Save transaction
+* [x] Bottom sheet
+* [x] Edit result
+* [x] Save transaction
 
 ---
 
@@ -471,23 +471,23 @@ Momo analyzing spending chart
 
 ## Summary
 
-* [ ] Total income
-* [ ] Total expense
-* [ ] Total savings
+* [x] Total income
+* [x] Total expense
+* [x] Total savings
 
 ---
 
 ## Charts
 
-* [ ] Expense donut chart
-* [ ] Weekly chart
+* [x] Expense donut chart
+* [x] Weekly chart
 
 ---
 
 ## Insights
 
-* [ ] Top category
-* [ ] Monthly insight card
+* [x] Top category
+* [x] Monthly insight card
 
 ---
 

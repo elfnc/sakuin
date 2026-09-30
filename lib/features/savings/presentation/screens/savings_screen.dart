@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:go_router/go_router.dart';
+import 'dart:math' as math;
 
 import 'package:sakuin/core/constants/app_colors.dart';
 import 'package:sakuin/core/constants/app_spacing.dart';
@@ -10,11 +11,42 @@ import 'package:sakuin/features/savings/providers/savings_provider.dart';
 import 'package:sakuin/database/app_database.dart';
 import 'package:sakuin/features/savings/presentation/widgets/add_contribution_sheet.dart';
 
-class SavingsScreen extends ConsumerWidget {
+import 'package:confetti/confetti.dart';
+
+class SavingsScreen extends ConsumerStatefulWidget {
   const SavingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SavingsScreen> createState() => _SavingsScreenState();
+}
+
+class _SavingsScreenState extends ConsumerState<SavingsScreen> {
+  late ConfettiController _confettiController;
+
+  @override
+  void initState() {
+    super.initState();
+    _confettiController = ConfettiController(duration: const Duration(seconds: 2));
+  }
+
+  @override
+  void dispose() {
+    _confettiController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Listen for state changes to detect newly achieved goals
+    ref.listen<SavingsState>(savingsProvider, (previous, next) {
+      if (previous != null && !previous.isLoading && !next.isLoading) {
+        if (next.achievedGoals.length > previous.achievedGoals.length) {
+          // A new goal was achieved!
+          _confettiController.play();
+        }
+      }
+    });
+
     final state = ref.watch(savingsProvider);
 
     return Scaffold(
@@ -29,9 +61,7 @@ class SavingsScreen extends ConsumerWidget {
             height: 220,
             child: Container(
               decoration: const BoxDecoration(
-                color: AppColors.income, // Use Green (income) as per earlier logic, or Tosca based on design.md
-                // Wait, design.md says Saving = Tosca (#95E1D3)
-                // AppColors.saving is likely Tosca. Let's use AppColors.saving
+                color: AppColors.saving, 
                 borderRadius: BorderRadius.vertical(bottom: Radius.circular(32)),
               ),
             ),
@@ -90,9 +120,42 @@ class SavingsScreen extends ConsumerWidget {
               ],
             ),
           ),
+          // Confetti overlay
+          Align(
+            alignment: Alignment.topCenter,
+            child: ConfettiWidget(
+              confettiController: _confettiController,
+              blastDirectionality: BlastDirectionality.explosive,
+              shouldLoop: false,
+              colors: const [AppColors.primary, AppColors.secondary, AppColors.softAccent, Colors.blue, Colors.purple],
+              createParticlePath: drawStar,
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  Path drawStar(Size size) {
+    // Basic star path
+    double degToRad(double deg) => deg * (3.1415926535897932 / 180.0);
+    const numberOfPoints = 5;
+    final halfWidth = size.width / 2;
+    final externalRadius = halfWidth;
+    final internalRadius = halfWidth / 2.5;
+    final degreesPerStep = degToRad(360 / numberOfPoints);
+    final halfDegreesPerStep = degreesPerStep / 2;
+    final path = Path();
+    final fullAngle = degToRad(360);
+    path.moveTo(size.width, halfWidth);
+    for (double step = 0; step < fullAngle; step += degreesPerStep) {
+      path.lineTo(halfWidth + externalRadius * math.cos(step),
+          halfWidth + externalRadius * math.sin(step));
+      path.lineTo(halfWidth + internalRadius * math.cos(step + halfDegreesPerStep),
+          halfWidth + internalRadius * math.sin(step + halfDegreesPerStep));
+    }
+    path.close();
+    return path;
   }
 
   Widget _buildGoalCard(BuildContext context, WidgetRef ref, SavingsGoal goal, {bool isAchieved = false}) {
@@ -116,7 +179,7 @@ class SavingsScreen extends ConsumerWidget {
         padding: const EdgeInsets.all(AppSpacing.s20),
         decoration: BoxDecoration(
           gradient: const LinearGradient(
-            colors: [AppColors.secondary, AppColors.softAccent], // #95E1D3 to #EAFFD0
+            colors: [AppColors.secondary, AppColors.softAccent],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -129,66 +192,82 @@ class SavingsScreen extends ConsumerWidget {
             ),
           ],
         ),
-        child: Column(
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    goal.title,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textPrimary,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          goal.title,
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: AppColors.surface.withValues(alpha: 0.5),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Text(
+                          pctString,
+                          style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: AppSpacing.s16),
+                  Text(
+                    '${currencyFormat.format(goal.currentAmount)} / ${currencyFormat.format(goal.targetAmount)}',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: AppColors.textPrimary.withValues(alpha: 0.8),
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: AppColors.surface.withValues(alpha: 0.5),
-                    borderRadius: BorderRadius.circular(16),
+                  const SizedBox(height: AppSpacing.s12),
+                  // Progress Bar
+                  Stack(
+                    children: [
+                      Container(
+                        height: 12,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: AppColors.surface.withValues(alpha: 0.4),
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                      ),
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeOutCubic,
+                        height: 12,
+                        width: MediaQuery.of(context).size.width * 0.75 * percentage,
+                        decoration: BoxDecoration(
+                          color: AppColors.primary,
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                      ),
+                    ],
                   ),
-                  child: Text(
-                    pctString,
-                    style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.textPrimary),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: AppSpacing.s16),
-            Text(
-              '${currencyFormat.format(goal.currentAmount)} / ${currencyFormat.format(goal.targetAmount)}',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: AppColors.textPrimary.withValues(alpha: 0.8),
-                fontWeight: FontWeight.w600,
+                ],
               ),
             ),
-            const SizedBox(height: AppSpacing.s12),
-            // Progress Bar
-            Stack(
-              children: [
-                Container(
-                  height: 12,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: AppColors.surface.withValues(alpha: 0.4),
-                    borderRadius: BorderRadius.circular(999),
-                  ),
+            if (isAchieved)
+              Padding(
+                padding: const EdgeInsets.only(left: 12.0),
+                child: Image.asset(
+                  AppAssets.momoSuccess,
+                  width: 50,
+                  height: 50,
                 ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.easeOutCubic,
-                  height: 12,
-                  width: MediaQuery.of(context).size.width * 0.75 * percentage, // approximate width
-                  decoration: BoxDecoration(
-                    color: AppColors.primary, // Using Coral for the fill looks nice on Tosca
-                    borderRadius: BorderRadius.circular(999),
-                  ),
-                ),
-              ],
-            ),
+              ),
           ],
         ),
       ),
@@ -201,7 +280,7 @@ class SavingsScreen extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            AppAssets.momoHappy, // Pretend this is Momo putting coin into piggy bank
+            AppAssets.momoSavings, 
             width: 150,
           ),
           const SizedBox(height: AppSpacing.s24),

@@ -82,7 +82,7 @@ class MainNavigationScreen extends StatelessWidget {
                   title: const Text('Scan OCR'),
                   onTap: () {
                     Navigator.pop(context);
-                    // TODO: Navigate to OCR screen
+                    context.push('/ocr-scan');
                   },
                 ),
               ],

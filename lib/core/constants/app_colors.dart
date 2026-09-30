@@ -15,8 +15,8 @@ class AppColors {
   static const Color surfaceSoft = Color(0xFFF8FAFC);
   static const Color border = Color(0xFFE5E7EB);
   static const Color textPrimary = Color(0xFF1F2937);
-  static const Color textSecondary = Color(0xFF64748B);
-  static const Color textMuted = Color(0xFF94A3B8);
+  static const Color textSecondary = Color(0xFF374151); // Darker (Gray 700)
+  static const Color textMuted = Color(0xFF4B5563); // Darker (Gray 600)
 
   // Semantic Colors
   static const Color income = Color(0xFF36C690);

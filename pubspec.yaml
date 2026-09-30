@@ -43,6 +43,10 @@ dependencies:
   path: ^1.9.1
   google_fonts: ^8.1.0
   intl: ^0.20.2
+  confetti: ^0.8.0
+  image_picker: ^1.2.2
+  google_mlkit_text_recognition: ^0.15.1
+  fl_chart: ^1.2.0
 
 dev_dependencies:
   flutter_test:
